@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Data
@@ -37,5 +38,25 @@ public class DepartmentServiceImp implements DepartmentServiceInt{
     @Override
     public List<Department> getDepartmentByDepartmentLocation(String location) {
         return departmentRepository.getByDepartmentLocation(location);
+    }
+
+    @Override
+    public Department deleteDepartment(long id) {
+        Department department=departmentRepository.getById(id);
+       // if( department==null) return;
+        departmentRepository.deleteById(id);
+        return department;
+    }
+
+    @Override
+    public void updateDepartment(long id,Department department) {
+        Optional<Department> optional=departmentRepository.findById(id);
+        Department dep;
+        if(optional.isPresent()){
+            dep=optional.get();
+            dep.setDepartmentLocation(department.getDepartmentLocation());
+            dep.setDepartmentName(department.getDepartmentName());
+            departmentRepository.save(dep);
+        }
     }
 }

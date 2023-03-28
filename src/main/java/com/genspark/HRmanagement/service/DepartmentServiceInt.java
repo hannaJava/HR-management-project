@@ -9,4 +9,8 @@ public interface DepartmentServiceInt {
     List<Department> getAllDepartments();
     Department getDepartmentById(long id);
     List<Department> getDepartmentByDepartmentLocation(String location);
+
+    Department deleteDepartment(long id);
+
+    void updateDepartment(long id,Department department);
 }
