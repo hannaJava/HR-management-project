@@ -1,6 +1,5 @@
 package com.genspark.HRmanagement.repository;
 
-import com.genspark.HRmanagement.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
