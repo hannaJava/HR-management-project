@@ -1,5 +1,6 @@
 package com.genspark.HRmanagement.service;
 
+import com.genspark.HRmanagement.exception.RecordNotFoundException;
 import com.genspark.HRmanagement.model.Department;
 import com.genspark.HRmanagement.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class DepartmentServiceImp implements DepartmentServiceInt{
 
     @Override
     public Department getDepartmentById(long id) {
-        return departmentRepository.getById(id);
+        return departmentRepository.findById(id).orElseThrow(()-> new RecordNotFoundException("no department exist with id: "+id));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class DepartmentServiceImp implements DepartmentServiceInt{
 
     @Override
     public Department deleteDepartment(long id) {
-        Department department=departmentRepository.getById(id);
+        Department department=departmentRepository.findById(id).orElseThrow(()-> new RecordNotFoundException("no department exist with id: "+id));
        // if( department==null) return;
         departmentRepository.deleteById(id);
         return department;
@@ -50,13 +51,14 @@ public class DepartmentServiceImp implements DepartmentServiceInt{
 
     @Override
     public void updateDepartment(long id,Department department) {
-        Optional<Department> optional=departmentRepository.findById(id);
+        Department optional=departmentRepository.findById(id).orElseThrow(()-> new RecordNotFoundException("no department exist with id: "+id));
+        //Optional<Department> optional=departmentRepository.findById(id);
         Department dep;
-        if(optional.isPresent()){
-            dep=optional.get();
+        //if(optional.isPresent()){
+            dep=optional;//.get();
             dep.setDepartmentLocation(department.getDepartmentLocation());
             dep.setDepartmentName(department.getDepartmentName());
             departmentRepository.save(dep);
-        }
+       // }
     }
 }

@@ -26,15 +26,15 @@ public class DepartmentController {
         departmentService.saveDepartment(department);
         return departmentService.getDepartmentById(department.getId());
     }
-
-    @DeleteMapping("/delete/{id}")
-    public Department deleteDepartment(@PathVariable("id") long id){
-        return departmentService.deleteDepartment(id);
-    }
     @PutMapping("/update/{id}")
     public Department updateDepartment(@PathVariable("id") long id,@RequestBody Department department){
         departmentService.updateDepartment(id,department);
         return departmentService.getDepartmentById(id);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public Department deleteDepartment(@PathVariable("id") long id){
+
+        return departmentService.deleteDepartment(id);
+    }
 }
